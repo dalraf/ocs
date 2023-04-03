@@ -24,7 +24,9 @@ services:
     networks:
       - localocs
     depends_on:
-      - ocsdb    
+      - ocsdb
+    ports:
+      - 8068:80
 
   ocsdb :
     image : mysql:8.0
@@ -42,37 +44,7 @@ services:
       MYSQL_DATABASE : ocsweb
     networks:
       - localocs
-
-  ocsproxy:
-    image: nginx
-    container_name: ocsinventory-proxy
-    restart: always
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./nginx/conf:/etc/nginx/templates
-      - ./nginx/certs:/etc/nginx/certs
-      - ./nginx/auth:/etc/nginx/auth
-    environment:
-      # 80 or 443
-      LISTEN_PORT: 80
-      # empty or ssl
-      PORT_TYPE: ""
-      SSL_CERT: ocs-dummy.crt
-      SSL_KEY: ocs-dummy.key
-      # OCS Api user restriction (default ocsapi/ocapi)
-      API_AUTH_FILE: ocsapi.htpasswd
-      # OCS Download
-      READ_TIMEOUT: 300
-      CONNECT_TIMEOUT: 300
-      SEND_TIMEOUT: 300
-      MAX_BODY_SIZE: 1G
-    depends_on:
-      - ocsapplication
-    networks:
-      - localocs
-  
+ 
 networks:
   localocs:
 
