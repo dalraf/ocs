@@ -2,7 +2,7 @@ version: '3'
 
 services:
   ocsapplication:
-    image: ocsinventory/ocsinventory-docker-image:2.10
+    image: ocsinventory/ocsinventory-docker-image:latest
     container_name : ocsinventory-server
     restart: always
     expose:
@@ -12,6 +12,7 @@ services:
       - "ocsreportsdata:/usr/share/ocsinventory-reports/ocsreports/extensions"
       - "varlibdata:/var/lib/ocsinventory-reports"
       - "httpdconfdata:/etc/apache2/conf-available"
+#      - "./install.php:/usr/share/ocsinventory-reports/ocsreports/install.php"
     environment:
       OCS_DB_SERVER: ocsinventory-db
       OCS_DB_USER: ocsuser
