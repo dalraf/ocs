@@ -8,10 +8,10 @@ services:
     expose:
       - "80"
     volumes:
-      - "perlcomdata:/etc/ocsinventory-server"
-      - "ocsreportsdata:/usr/share/ocsinventory-reports/ocsreports/extensions"
-      - "varlibdata:/var/lib/ocsinventory-reports"
-      - "httpdconfdata:/etc/apache2/conf-available"
+      - "./perlcomdata:/etc/ocsinventory-server"
+      - "./ocsreportsdata:/usr/share/ocsinventory-reports/ocsreports/extensions"
+      - "./varlibdata:/var/lib/ocsinventory-reports"
+      - "./httpdconfdata:/etc/apache2/conf-available"
 #      - "./install.php:/usr/share/ocsinventory-reports/ocsreports/install.php"
     environment:
       OCS_DB_SERVER: ocsinventory-db
@@ -37,7 +37,7 @@ services:
       - "3306"
     volumes :
       - ./sql/:/docker-entrypoint-initdb.d/
-      - sqldata:/var/lib/mysql
+      - ./sqldata:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD : rootpass
       MYSQL_USER : ocsuser
@@ -45,14 +45,8 @@ services:
       MYSQL_DATABASE : ocsweb
     networks:
       - localocs
- 
+
 networks:
   localocs:
 
-volumes:
-  perlcomdata:
-  ocsreportsdata:
-  varlibdata:
-  httpdconfdata:
-  sqldata:
- 
+
